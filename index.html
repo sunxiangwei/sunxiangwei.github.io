@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script src="/base/jq/jquery-3.4.1.min.js"></script>
+
+    <style>
+        #loginBox{
+            width:400px;
+            background-color: #ccffcc;
+            border: 20px solid #cccccc;
+            border-radius: 10px;
+
+            margin: 100px auto;  /*盒子居中*/
+            padding-bottom: 20px;
+        }
+
+        #loginBox input{
+            width:200px;
+            height: 30px;
+            padding: 4px;
+        }
+
+        #loginBox input[type="button"]{
+            width: 60px;
+            height: 40px;
+        }
+
+        #loginBox tr{
+            height: 50px;
+        }
+
+        #loginMsg{
+            height: 14px;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            font-size: 14px;
+            color: red;
+        }
+    </style>
+    <script>
+        $(function () {
+            $('#loginBtn').click(function () {
+                var ysmc = $("#ysmc").val();
+                var ysmm = $("#ysmm").val();
+
+                $.post("/base/login.do",{"ysmc":ysmc,"ysmm":ysmm},function (msg) {
+                    if (msg == '1'){
+                        //登陆成功
+                        alert("登陆成功");
+                        location.href = '/base/main.htm';
+                    }else{
+                        //alert("登录失败");
+                        $('#loginMsg').html("用户名或密码错误");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="loginBox">
+        <h2 align="center">用户登录</h2>
+        <p id="loginMsg"></p>
+        <table align="center">
+            <tr>
+                <td>用户名：</td>
+                <td><input type="text" id="ysmc" name="ysmc" required="required" placeholder="张三/zhangsan"/></td>
+            </tr>
+            <tr>
+                <td>密码：</td>
+                <td><input type="password" id="ysmm" name="ysmm" required="required"/></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input id="loginBtn" type="button" value="登录"/>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+
+</body>
+</html>
